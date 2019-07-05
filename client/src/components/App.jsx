@@ -10,11 +10,11 @@ class App extends Component {
       <Router>
         <React.Fragment>
           <nav>
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
             <Link to="/aboutus">About Us</Link>
           </nav>
           <Switch>
-            <Route path="/home" component={Home} />
+            <Route exact path="/" component={Home} />
             <Route path="/aboutus" component={AboutUs} />
             <Route component={NoMatch} />
           </Switch>

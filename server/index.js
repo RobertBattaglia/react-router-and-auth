@@ -4,6 +4,11 @@ const path = require('path');
 const app = express();
 
 app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
+app.use(
+  require('morgan')(
+    ':method :url :status :res[content-length] - :response-time ms'
+  )
+);
 
 app.get('/bundle.js', (req, res) => {
   res.sendFile(__dirname, '..', 'client', 'dist', 'bundle.js'),
@@ -15,6 +20,9 @@ app.get('/bundle.js', (req, res) => {
 });
 
 app.get('/*', function(req, res) {
+  if (!['/', '/aboutus'].includes(req.path)) {
+    res.status(404);
+  }
   res.sendFile(
     path.join(__dirname, '..', 'client', 'dist', 'index.html'),
     err => {
